@@ -48,8 +48,6 @@ namespace meshreconstruct
 
 
   };
-
-  MeshReconstruct* MeshReconstruct::_instance = nullptr;
 }
 
 #endif //MESHRECONSTRUCTWRAPPER_MESHRECONSTRUCT_H

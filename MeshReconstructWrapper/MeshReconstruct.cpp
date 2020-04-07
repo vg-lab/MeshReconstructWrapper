@@ -23,6 +23,7 @@
 
 namespace meshreconstruct
 {
+  MeshReconstruct* MeshReconstruct::_instance = nullptr;
 
   MeshReconstruct::MeshReconstruct( )
   {

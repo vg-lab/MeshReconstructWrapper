@@ -48,6 +48,7 @@ list( APPEND NEURONIZE_DEPENDENT_LIBRARIES
 
 
 add_subdirectory( MeshReconstructWrapper )
+add_subdirectory(wrapperTest)
 
 set( DOXYGEN_MAINPAGE_MD README.md )
 set( DOXYGEN_EXTRA_INPUT ${PROJECT_SOURCE_DIR}/README.md )

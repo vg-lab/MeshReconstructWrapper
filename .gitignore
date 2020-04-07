@@ -138,7 +138,3 @@ target_wrapper.*
 CMakeLists.txt.user*
 
 .idea
-
-SkelGenerator
-
-MeshReconstructWrapper

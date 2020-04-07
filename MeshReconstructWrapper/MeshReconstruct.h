@@ -5,10 +5,12 @@
 #ifndef MESHRECONSTRUCTWRAPPER_MESHRECONSTRUCT_H
 #define MESHRECONSTRUCTWRAPPER_MESHRECONSTRUCT_H
 
+#include <meshreconstructwrapper/api.h>
+
 #include <QString>
 namespace meshreconstruct
 {
-  class MeshReconstruct
+  class MESHRECONSTRUCTWRAPPER_API MeshReconstruct
   {
     int _pythonVersion;
     QString _envPath;

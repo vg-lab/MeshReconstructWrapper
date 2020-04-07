@@ -10,8 +10,7 @@ Ubuntu-subproject:
   - bash .gitlab-ci.sh
   tags:
   - ubuntu
-  except:
-  - master
+
 
 OSX-subproject:
   stage: build
@@ -22,8 +21,6 @@ OSX-subproject:
   - bash .gitlab-ci.sh
   tags:
   - osx-sierra
-  except:
-  - master
 
 Win7-VS14-x64-subproject:
   stage: build

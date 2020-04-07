@@ -19,6 +19,7 @@
 #define RUN "src/run.sh"
 #endif
 
+#define ENV "env"
 
 namespace meshreconstruct
 {
@@ -31,12 +32,13 @@ namespace meshreconstruct
     QSettings settings( "MeshReconstruct", "preferences" );
 #endif
 
-    _envPath = QFileInfo( settings.fileName( ) ).absoluteDir( ).absolutePath( );
-    QDir dir( _envPath );
+    _configPath = QFileInfo( settings.fileName( ) ).absoluteDir( ).absolutePath( );
+    QDir dir( _configPath );
     if( !dir.exists( ) )
     {
-      dir.mkpath( _envPath );
+      dir.mkpath( _configPath );
     }
+    _envPath = _configPath + "/" + ENV;
 
     _exePath = boost::dll::program_location( ).parent_path( ).string( );
 
@@ -96,29 +98,28 @@ namespace meshreconstruct
       _init = true;
       if( !QFileInfo( _envPath ).exists( ) )
       {
-        QDir dir( _envPath );
-        dir.mkpath( _envPath );
-      }
 
-      std::string command =
-          "\"" + _exePath +
-          "/" + INSTALL + "\" " + _envPath.toStdString( );
-      boost::process::ipstream errStream;
-      int result = boost::process::system( command,
-                                           boost::process::std_out > stdout,
-                                           boost::process::std_err > errStream,
-                                           boost::process::std_in < stdin );
+        std::string command =
+            "\"" + _exePath +
+            "/" + INSTALL + "\" " + _envPath.toStdString( );
+        boost::process::ipstream errStream;
+        int result = boost::process::system( command,
+                                             boost::process::std_out > stdout,
+                                             boost::process::std_err >
+                                             errStream,
+                                             boost::process::std_in < stdin );
 
-      std::string line;
-      std::string error;
-      while( errStream && std::getline( errStream, line ) && !line.empty( ) )
-      {
-        error += line;
-      }
+        std::string line;
+        std::string error;
+        while( errStream && std::getline( errStream, line ) && !line.empty( ) )
+        {
+          error += line;
+        }
 
-      if( result != 0 || error.find( "ERROR" ) != std::string::npos )
-      {
-        _init = false;
+        if( result != 0 || error.find( "ERROR" ) != std::string::npos )
+        {
+          _init = false;
+        }
       }
     }
   }
@@ -146,7 +147,7 @@ namespace meshreconstruct
     }
 
     QString command =
-        "\"" + QCoreApplication::applicationDirPath( ) + "/" + RUN + "\" " +
+        "\"" + QString::fromStdString(_exePath) + "/" + RUN + "\" " +
         _envPath + " " + arguments.join( " " );
     return std::system( command.toStdString( ).c_str( ) );
   }
@@ -165,7 +166,7 @@ namespace meshreconstruct
       arguments << "-e" << "\"" + exportPath + "\"";
     }
 
-    QString command = "\"\"" + QCoreApplication::applicationDirPath() + "/" + RUN + "\" " + _envPath + " " + arguments.join(" ") + "\"";
+    QString command = "\"\"" + QString::fromStdString(_exePath) + "/" + RUN + "\" " + _envPath + " " + arguments.join(" ") + "\"";
     std::cout << command.toStdString() << std::endl;
     return std::system(command.toStdString().c_str());
 

@@ -12,11 +12,14 @@ namespace meshreconstruct
   {
     int _pythonVersion;
     QString _envPath;
-    bool _init;
     std::string _exePath;
+    QString _configPath;
+    bool _init;
 
     public:
     static MeshReconstruct *getInstance();
+    MeshReconstruct(MeshReconstruct const&) = delete;
+    MeshReconstruct& operator=(MeshReconstruct const&) = delete;
 
     void initPythonEnv( );
 
@@ -30,10 +33,9 @@ namespace meshreconstruct
                    bool includeSegments, int kernelSize, bool clean,
                    const QString& exportPath );
 
+
     protected:
     MeshReconstruct();
-    MeshReconstruct(MeshReconstruct const&);
-    MeshReconstruct& operator=(MeshReconstruct const&);
 
     private:
     static MeshReconstruct* _instance;

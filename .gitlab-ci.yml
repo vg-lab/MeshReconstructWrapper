@@ -1,7 +1,6 @@
 stages:
   - build
 
-
 Ubuntu-subproject:
   stage: build
   script:
@@ -25,13 +24,10 @@ OSX-subproject:
 Win7-VS14-x64-subproject:
   stage: build
   script:
-  - set WINAPP_REPO=gitlabci@gmrv.es:apps.private
   - call %ENVFILESDIR%\Qt-5.12-vs14.bat
   - call %ENVFILESDIR%\Boost-1.71-vs14-x64.bat
-
   - set PATH=%PATH%;"c:\Program Files\Git\bin"
   - set BUILD_GENERATOR=Visual Studio 14 Win64
-  - set GLEW_ROOT=c:\libs\glew-1.11.0
   - set CMAKE_EXTRA_ARGS=-DCLONE_SUBPROJECTS=ON
   - bash --login .gitlab-ci.sh
   tags:

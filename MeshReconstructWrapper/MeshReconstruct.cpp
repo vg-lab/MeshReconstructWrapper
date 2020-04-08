@@ -132,6 +132,9 @@ namespace meshreconstruct
                       int kernelSize,
                       bool clean, const QString& exportPath )
   {
+    if (!_init) {
+      throw "It cannot be repaired because the system does not have python or the environment was not created correctly.";
+    }
     QStringList arguments;
 
     arguments << "-a" << "\"" + outputFile + "\"" << "-v"
@@ -156,6 +159,9 @@ namespace meshreconstruct
   int MeshReconstruct::repairDir(const QString &outputDir, const QString &inputDir, const QString &saveFormat,
                               int precision, float reduction, bool includeSegments, int kernelSize,
                               bool clean, const QString& exportPath) {
+    if (!_init) {
+      throw "It cannot be repaired because the system does not have python or the environment was not created correctly.";
+    }
 
     QStringList arguments;
 
@@ -179,6 +185,11 @@ namespace meshreconstruct
       _instance = new MeshReconstruct();
     }
     return _instance;
+  }
+
+  bool MeshReconstruct::isInit( ) const
+  {
+    return _init;
   }
 
 }

@@ -11,6 +11,10 @@ if( NOT EXISTS ${CMAKE_SOURCE_DIR}/CMake/common/Common.cmake )
   message( FATAL_ERROR "CMake/common missing, run: git submodule update --init")
 endif( )
 
+if( NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/MeshReconstruct/run.bat )
+  message( FATAL_ERROR "MeshReconstruct missing, run: git submodule update --init")
+endif( )
+
 list( APPEND CMAKE_MODULE_PATH
   ${PROJECT_SOURCE_DIR}/CMake
   ${CMAKE_SOURCE_DIR}/CMake/common

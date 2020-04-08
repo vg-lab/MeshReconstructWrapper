@@ -23,7 +23,9 @@ namespace meshreconstruct
     MeshReconstruct(MeshReconstruct const&) = delete;
     MeshReconstruct& operator=(MeshReconstruct const&) = delete;
 
-    void initPythonEnv( );
+    void resetPythonEnv( );
+
+    bool isInit( ) const;
 
     int repairFile( const QString& outputFile, const QString& inputFile,
                     const QString& saveFormat, int precision, float reduction,
@@ -42,10 +44,9 @@ namespace meshreconstruct
     private:
     static MeshReconstruct* _instance;
 
+    void initPythonEnv( );
+
     int checkPython( );
-
-    void resetPythonEnv( );
-
 
   };
 }

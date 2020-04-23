@@ -13,10 +13,10 @@
 
 #ifdef _WIN32
 #define INSTALL std::string("src/install.bat")
-#define RUN "src/run.bat"
+#define RUN "/src/run.bat"
 #else
 #define INSTALL std::string("src/install.sh")
-#define RUN "src/run.sh"
+#define RUN "/src/run.sh"
 #endif
 
 #define ENV "env"
@@ -151,8 +151,9 @@ namespace meshreconstruct
     }
 
     QString command =
-        "\"" + QString::fromStdString(_exePath) + "/" + RUN + "\" " +
-        _envPath + " " + arguments.join( " " );
+        "\"\"" + QString::fromStdString(_exePath) + RUN + "\" " +
+        _envPath + " " + arguments.join( " " ) + "\"";
+    auto test = command.toStdString();
     return std::system( command.toStdString( ).c_str( ) );
   }
 
@@ -174,7 +175,6 @@ namespace meshreconstruct
     }
 
     QString command = "\"\"" + QString::fromStdString(_exePath) + "/" + RUN + "\" " + _envPath + " " + arguments.join(" ") + "\"";
-    std::cout << command.toStdString() << std::endl;
     return std::system(command.toStdString().c_str());
 
   }

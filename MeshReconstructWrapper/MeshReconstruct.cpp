@@ -151,9 +151,14 @@ namespace meshreconstruct
     }
 
     QString command =
-        "\"\"" + QString::fromStdString(_exePath) + RUN + "\" " +
-        _envPath + " " + arguments.join( " " ) + "\"";
-    auto test = command.toStdString();
+        "\"" + QString::fromStdString(_exePath) + RUN + "\" " +
+        _envPath + " " + arguments.join( " " );
+
+#ifdef _WIN32
+    command.insert(0,"\"");
+    command.append("\"");
+#endif
+
     return std::system( command.toStdString( ).c_str( ) );
   }
 
@@ -174,7 +179,13 @@ namespace meshreconstruct
       arguments << "-e" << "\"" + exportPath + "\"";
     }
 
-    QString command = "\"\"" + QString::fromStdString(_exePath) + "/" + RUN + "\" " + _envPath + " " + arguments.join(" ") + "\"";
+    QString command = "\"" + QString::fromStdString(_exePath) + "/" + RUN + "\" " + _envPath + " " + arguments.join(" ");
+
+#ifdef _WIN32
+    command.insert(0,"\"");
+    command.append("\"");
+#endif
+
     return std::system(command.toStdString().c_str());
 
   }

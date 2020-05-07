@@ -43,6 +43,7 @@ namespace meshreconstruct
 
     _exePath = boost::dll::program_location( ).parent_path( ).string( );
 
+    _init = false;
     initPythonEnv( );
   }
 
@@ -202,6 +203,7 @@ namespace meshreconstruct
   {
     return _init;
   }
+
 
 }
 

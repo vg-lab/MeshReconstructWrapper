@@ -106,15 +106,16 @@ namespace meshreconstruct
             "/" + INSTALL + "\" " + _envPath.toStdString( );
         boost::process::ipstream errStream;
         int result = boost::process::system( command,
-                                             boost::process::std_out > stdout,
+                                             boost::process::std_out > boost::process::null,
                                              boost::process::std_err >
                                              errStream,
-                                             boost::process::std_in < stdin );
+                                             boost::process::std_in < boost::process::null);
 
         std::string line;
         std::string error;
         while( errStream && std::getline( errStream, line ) && !line.empty( ) )
         {
+            std::cout << line << std::endl;
           error += line;
         }
 

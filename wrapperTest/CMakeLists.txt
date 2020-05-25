@@ -9,7 +9,7 @@ set(WRAPPERTEST_HEADERS
   )
 
 set(WRAPPERTEST_LINK_LIBRARIES
-  meshreconstructwrapper
+  MeshReconstructWrapper
   )
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

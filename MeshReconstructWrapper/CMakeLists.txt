@@ -17,6 +17,6 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${PROJECT_BINARY_DIR}/include ${PROJECT_BINARY_DIR}/src)
 
 
-common_library(meshreconstructwrapper)
+common_library(MeshReconstructWrapper)
 
 

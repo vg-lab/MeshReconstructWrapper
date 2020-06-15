@@ -3,5 +3,5 @@
 	url = https://github.com/Eyescale/CMake.git
 [submodule "MeshReconstruct"]
 	path = MeshReconstruct
-	url = git@gitlab.gmrv.es:cbbsp1/MeshReconstruct.git
+	url = git@gitlab.vglab.es:cbbsp1/MeshReconstruct.git
 	branch = Python3

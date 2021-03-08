@@ -29,6 +29,8 @@ namespace meshreconstruct
   {
 #ifdef _WIN32
     QSettings settings(QSettings::IniFormat,QSettings::SystemScope,"MeshReconstruct","preferences");
+    AllocConsole();
+    ShowWindow(::GetConsoleWindow(), SW_HIDE);
 #else
     QSettings settings( "MeshReconstruct", "preferences" );
 #endif
@@ -105,10 +107,14 @@ namespace meshreconstruct
             "\"" + _exePath +
             "/" + INSTALL + "\" " + _envPath.toStdString( );
         boost::process::ipstream errStream;
+#ifdef _WIN32
+        ShowWindow(::GetConsoleWindow(), SW_SHOW); //show console for python installing.
+        freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
+#endif
+
         int result = boost::process::system( command,
-                                             boost::process::std_out > boost::process::null,
-                                             boost::process::std_err >
-                                             errStream,
+                                             boost::process::std_out > stdout,
+                                             boost::process::std_err > errStream,
                                              boost::process::std_in < boost::process::null);
 
         std::string line;
@@ -118,6 +124,10 @@ namespace meshreconstruct
             std::cout << line << std::endl;
           error += line;
         }
+
+#ifdef _WIN32
+          ShowWindow(::GetConsoleWindow(), SW_HIDE); //HIDE console
+#endif
 
         if( result != 0 || error.find( "ERROR" ) != std::string::npos )
         {
